@@ -6,20 +6,26 @@ https://www.humanics-es.com/strength.pdf
 https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/industry-professionals/industry-guide-safety-requirements-children-toys-related-products-summary.html
 '''
 
-h = 0.7 # Metres (M)
-wb = 0.7 # Metres (M)
-g = 9.81 # N/kg
-m = 10 # kg
-Fpush = 44.5 # Newtons (N)
+# Constants
+g = 9.81 # (N/kg)
+Fpush = 149.06 # (2-5 year old push strength) * 2 for a factor of safety (N)
 mu_s = 0.62 # Wood on Concrete Coefficient of Static Friction
+density = 1180 # Density of plexiglass (kg/m^3)
 
-G = m * g
+# User changed variables
+h = 0.6 # Height of board (M)
+w = 0.72 # Width of board (M)
+hb = 0.10 # Height of base (M)
+wb = 0.6 # Width of base (M)
+t = 0.0191 # Thickness of board (M)
 
-if (Fpush * h) > (G * 0.5 * wb):
-	print(f"{(Fpush * h)} > {(G * 0.5 * wb)}")
-	print("The board will tip.")
-elif (Fpush > mu_s * G):
+m = h * w * t
+Gboard = m * g
+
+mbase = (Fpush * hb - Gboard * (0.5 * wb)) / (0.5 * wb * g)
+
+print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
+
+if (Fpush > mu_s * G):
 	print(f"{(Fpush)} > {(mu_s * G)}")
 	print("The board will slip.")
-else:
-	print("The board will not tip nor slip.")
