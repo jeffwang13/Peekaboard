@@ -1,4 +1,4 @@
 # Peekaboard
 FYDP related scripts.
 
-![Image of Statics Analysis](https://raw.githubusercontent.com/jeffwang13/Peekaboard/master/statics_analysis.jpg)
+![Image of Weighted Base Statics Analysis](https://raw.githubusercontent.com/jeffwang13/Peekaboard/master/weighted_base_analysis.jpg)

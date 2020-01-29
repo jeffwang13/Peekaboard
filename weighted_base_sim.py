@@ -15,17 +15,24 @@ rho_plexi = 1180 # Density of plexiglass (kg/m^3)
 # User changed variables
 h = 0.6 # Height of board (M)
 w = 0.72 # Width of board (M)
-hb = 0.1 # Height of base (M)
+hb = 0.15 # Height of base (M)
 wb = 0.6 # Width of base (M)
 t = 0.0191 # Thickness of board (M)
+db = 0.1 # Distance between bottom of board and bottom of base (M)
+Fb = 1639.66 # (N)
+Fc = 1788.72 # (N)
 
-mboard = (h * w * t) * rho_plexi
-print(mboard)
-Gboard = mboard * g
-print(Gboard)
+# Calculated variables
+mboard = (h * w * t) * rho_plexi # mass of board (kg)
+Gboard = mboard * g # gravitational force of board (N)
 
-mbase = ((Fpush * hb) - (Gboard * 0.5 * wb)) / (0.5 * wb * g)
+# Board calculations
 
+
+# Base calculations
+mbase = ((Fb * hb) - (Fc * db) - (Gboard * 0.5 * wb)) / (0.5 * wb * g)
+
+# Output
 print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
 
 mfoot = mbase / 2
