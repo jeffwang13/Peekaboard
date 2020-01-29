@@ -26,14 +26,18 @@ Fc = 1788.72 # (N)
 mboard = (h * w * t) * rho_plexi # mass of board (kg)
 Gboard = mboard * g # gravitational force of board (N)
 
-# Board calculations
-
-
-# Base calculations
+# Base mass calculations
 mbase = ((Fb * hb) - (Fc * db) - (Gboard * 0.5 * wb)) / (0.5 * wb * g)
-
-# Output
 print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
+
+# Base dimension calculations
+densities = [("Iron", 7860), ("Water", 997), ("Plexiglass", rho_plexi)] # Densities (kg/m^3)
+
+for material in densities:
+	volume_needed = mbase / material[1]
+	xz_slot_area = t * (hb - db)
+	base_length = volume_needed / (wb * hb - xz_slot_area)
+	print(f"The dimensions for a {material[0]} base are:\nWidth: {wb}, Length: {base_length}, Height: {hb}.")
 
 mfoot = mbase / 2
 
