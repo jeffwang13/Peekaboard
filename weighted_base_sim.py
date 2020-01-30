@@ -14,33 +14,31 @@ rho_plexi = 1180 # Density of plexiglass (kg/m^3)
 
 # User changed variables
 h = 0.6 # Height of board (M)
-w = 0.72 # Width of board (M)
+w = 0.6 # Width of board (M)
 hb = 0.15 # Height of base (M)
 wb = 0.6 # Width of base (M)
 t = 0.0191 # Thickness of board (M)
 db = 0.1 # Distance between bottom of board and bottom of base (M)
-Fb = 1639.66 # (N)
-Fc = 1788.72 # (N)
 
 # Calculated variables
 mboard = (h * w * t) * rho_plexi # mass of board (kg)
 Gboard = mboard * g # gravitational force of board (N)
 
 # Base mass calculations
-mbase = ((Fb * hb) - (Fc * db) - (Gboard * 0.5 * wb)) / (0.5 * wb * g)
-print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
+mbase = ((Fpush * h) + (Fpush * hb) - (Gboard * 0.5 * wb)) / (0.5 * wb * g)
 
-# Base dimension calculations
-densities = [("Iron", 7860), ("Water", 997), ("Plexiglass", rho_plexi)] # Densities (kg/m^3)
+# Slipping calculation
+if (Fpush > mu_s * (Gboard + mbase * g)):
+	print("The board will slip. Revisit design.")
+else:
+	print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
 
-for material in densities:
-	volume_needed = mbase / material[1]
-	xz_slot_area = t * (hb - db)
-	base_length = volume_needed / (wb * hb - xz_slot_area)
-	print(f"The dimensions for a {material[0]} base are:\nWidth: {wb}, Length: {base_length}, Height: {hb}.")
+	# Base dimension calculations
+	densities = [("Iron", 7860), ("Water", 997), ("Plexiglass", rho_plexi)] # Densities (kg/m^3)
 
-mfoot = mbase / 2
+	for material in densities:
+		volume_needed = (mbase / 2) / material[1]
+		xz_slot_area = t * (hb - db)
+		base_length = volume_needed / (wb * hb - xz_slot_area)
+		print(f"The dimensions for a {material[0]} base are:\nWidth: {wb}, Length: {base_length}, Height: {hb}.")
 
-# if (Fpush > mu_s * Gboard):
-# 	print(f"{(Fpush)} > {(mu_s * Gboard)}")
-# 	print("The board will slip.")
