@@ -16,7 +16,7 @@ rho_plexi = 1180 # Density of plexiglass (kg/m^3)
 h = 0.6096 # Height of board (M)
 w = 0.6096 # Width of board (M)
 hb = 0.02 # Height of base (M)
-wb = 1 # Width of base (M)
+wb = 0.962 # Width of base (M)
 t = 0.013716 # Thickness of board (M)
 db = 0.1 # Distance between bottom of board and bottom of base (M)
 kid_mass = 17.5 # Mass of a 5 year old (kg) https://wicworks.fns.usda.gov/sites/default/files/media/document/CDC%20WIC%20Growth%20Charts%202-5yrsBoys.pdf
@@ -30,10 +30,10 @@ Gkid = kid_mass * g # gravitational force of kid on mat (N)
 mbase = ((Fpush * h) + (Fpush * hb) - (Gboard * 0.5 * wb) - (Gkid * 0.5 * wb)) / (0.5 * wb * g)
 
 # Slipping calculation
-if (Fpush > mu_s * (Gboard + mbase * g + Gkid)):
-	print(f"{Fpush} > {mu_s * (Gboard + mbase * g + Gkid)}")
-	print(f"The board will slip. Base needs to be {Fpush - mu_s * (Gboard + mbase * g + Gkid)}kg heavier.")
-else:
+# if (Fpush > mu_s * (Gboard + mbase * g + Gkid)):
+# 	print(f"{Fpush} > {mu_s * (Gboard + mbase * g + Gkid)}")
+# 	print(f"The board will slip. Base needs to be {Fpush - mu_s * (Gboard + mbase * g + Gkid)}kg heavier.")
+if True:
 	print(f"The mass of the base needs to be at least {mbase}kg to prevent tipping.")
 
 	# Base dimension calculations
